@@ -1,19 +1,21 @@
 Demos:
 Simple Volume
  - create simple volume
-   - based on existing volume 
+   - based on existing volume
+   - walk through the config 
  - destroy this one
 
 Simple PVC
  - create simple-pvc.yaml
-   - based on existing volume
+   - based on existing volume from prior example 
    - walk through selector labels
    - PVCs are namespaced!
 
 Exclusive SC + PVC 
  - What is the use case
-   - importing existing volumes
+   - importing existing volumes and preventing binding them to the wrong pod 
  - create pv + SC 
+   - show PV as available 
  - create successful combo
  - show it works 
    - same volume as previous examples
@@ -28,12 +30,13 @@ Exclusive SC + PVC
 
 Dynamic PVC
  - comment out the label from the Exclusive failure pod 
- - takes ~35 seconds to spin up 
+ - takes ~35 seconds to spin up with new PV
 
 StatefulSet Demo
  - walk through existing configs
    - stateful-set.yaml
    - stateful-set-ingress.yaml
+     - precreated to save time
  - set data on node 3 to something new
  - show data is there
  - edit replicas to 2
