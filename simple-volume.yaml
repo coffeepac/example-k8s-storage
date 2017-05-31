@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-volume
+  labels:
+    failure-domain.beta.kubernetes.io/zone: us-east-1b  # AWS limitation, can't mount between zones
+    app: simple-volume
+spec:
+  containers:
+    - name: sample-go
+      image: quay.io/samsung_cnct/example-k8s-storage:0.2
+      ports:
+      - containerPort: 8080
+      volumeMounts:
+        - name: simple-volume
+          mountPath: /mnt/pv
+  volumes:
+    - name: simple-volume
+      awsElasticBlockStore:
+        volumeID: vol-09a496a76c6c9133b  
+        fsType: ext4  # k8s will format the drive (if mkfs is available for that fs on the node)

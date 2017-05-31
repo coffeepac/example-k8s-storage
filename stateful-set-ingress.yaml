@@ -1,0 +1,106 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: stateful-set-one
+  namespace: storage-demo
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: storage-demo-one.kubeme.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: stateful-set-one
+          servicePort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stateful-set-one
+spec:
+  ports:
+    - port: 8080
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: stateful-set-one
+subsets:
+  - addresses: 
+    - ip: 10.129.160.4  #  enter ip here
+    ports:
+    - port: 8080
+---    
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: stateful-set-two
+  namespace: storage-demo
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: storage-demo-two.kubeme.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: stateful-set-two
+          servicePort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stateful-set-two
+spec:
+  ports:
+    - port: 8080
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: stateful-set-two
+subsets:
+  - addresses: 
+    - ip: 10.128.68.3  #  enter ip address here
+    ports:
+    - port: 8080
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: stateful-set-three
+  namespace: storage-demo
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: storage-demo-three.kubeme.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: stateful-set-three
+          servicePort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stateful-set-three
+spec:
+  ports:
+    - port: 8080
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: stateful-set-three
+subsets:
+  - addresses: 
+    - ip: 10.129.128.5  #  enter ip address here
+    ports:
+    - port: 8080

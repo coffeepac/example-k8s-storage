@@ -1,0 +1,49 @@
+Demos:
+Simple Volume
+ - create simple volume
+   - based on existing volume 
+ - destroy this one
+
+Simple PVC
+ - create simple-pvc.yaml
+   - based on existing volume
+   - walk through selector labels
+   - PVCs are namespaced!
+
+Exclusive SC + PVC 
+ - What is the use case
+   - importing existing volumes
+ - create pv + SC 
+ - create successful combo
+ - show it works 
+   - same volume as previous examples
+ - delete
+   - show that PV is released but not available
+   - have discussion about reclaim policies and how recycle can be set to something custom in the master controller
+ - delete PV/recreate
+ - create failure template
+   - show events 
+   - show this only works if all claims have a label, no label and this will grab the existing pv 
+ - create successful one again.
+
+Dynamic PVC
+ - comment out the label from the Exclusive failure pod 
+ - takes ~35 seconds to spin up 
+
+StatefulSet Demo
+ - walk through existing configs
+   - stateful-set.yaml
+   - stateful-set-ingress.yaml
+ - set data on node 3 to something new
+ - show data is there
+ - edit replicas to 2
+   kubectl edit statefulset stateful-set 
+ - wait for pod to die
+ - show that PVC/PV still exist
+ - verify it gets s 502 back 
+   - this is because the SVC has an invalid endpoint object
+ - edit stateful set again, set replicas to 3
+ - wait for pod to come up, grab new ip
+ - edit endpoint with new ip
+   kubectl edit endpoint stateful-set-three
+ - check that data still present
